@@ -16,7 +16,7 @@ export interface FetchCustomerPortalUrlArgs {
 };
 
 export interface PaymentProcessor {
-  id: 'stripe' | 'lemonsqueezy';
+  id: 'stripe';
   createCheckoutSession: (args: CreateCheckoutSessionArgs) => Promise<{ session: { id: string; url: string }; }>; 
   fetchCustomerPortalUrl: (args: FetchCustomerPortalUrlArgs) => Promise<string | null>;
   webhook: PaymentsWebhook;

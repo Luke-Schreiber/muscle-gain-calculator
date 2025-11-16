@@ -6,7 +6,6 @@ CREATE TABLE "User" (
     "username" TEXT,
     "isAdmin" BOOLEAN NOT NULL DEFAULT false,
     "paymentProcessorUserId" TEXT,
-    "lemonSqueezyCustomerPortalUrl" TEXT,
     "subscriptionStatus" TEXT,
     "subscriptionPlan" TEXT,
     "datePaid" TIMESTAMP(3),
