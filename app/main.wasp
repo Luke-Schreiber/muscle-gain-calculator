@@ -91,7 +91,7 @@ app OpenSaaS {
     defaultFrom: {
       name: "Race Time Predictions",
       // When using a real provider, e.g. SendGrid, you must use the same email address that you configured your account to send out emails with!
-      email: "dev@localhost"
+      email: "healthprojections@gmail.com"
     },
   },
 }
