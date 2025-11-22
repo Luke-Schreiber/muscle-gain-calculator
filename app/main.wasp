@@ -39,7 +39,7 @@ app OpenSaaS {
       email: {
         fromField: {
           name: "Race Time Predictions",
-          email: "dev@localhost"
+          email: "healthprojections@gmail.com"
         },
         emailVerification: {
           clientRoute: EmailVerificationRoute,
