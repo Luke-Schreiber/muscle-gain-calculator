@@ -101,8 +101,8 @@ export function Shell({ children }: { children?: ReactNode }) {
     const LEFT_PANEL_WIDTH = 6 * toolbarWidth;
 
     // Open and close the left toolbar, burger toggle visible on hover.
-    const [leftToolbarOpened, { toggle: toggleLeftToolbar }] = useDisclosure(true);
     const [activeLeftPanel, setActiveLeftPanel] = useState<number | null>(null);
+    const [navbarOpened, setNavbarOpened] = useState(false);
     const navbarWidth = useMemo(() => (activeLeftPanel === null ? toolbarWidth : LEFT_PANEL_WIDTH), [activeLeftPanel, LEFT_PANEL_WIDTH, toolbarWidth]);
 
     // Toolbar icons ----------------------
@@ -166,9 +166,10 @@ export function Shell({ children }: { children?: ReactNode }) {
         <AppShell
             header={{ height: toolbarWidth }}
             navbar={{
-                width: navbarWidth,
+                width: 350,
                 breakpoint: 0,
-                collapsed: { desktop: !leftToolbarOpened },
+                collapsed: { desktop: !navbarOpened },
+                withBorder: true,
             }}
             padding="xs"
         >
@@ -179,7 +180,7 @@ export function Shell({ children }: { children?: ReactNode }) {
                         {/** Left Toolbar Toggle Burger Icon */}
                         <Flex justify="center" w={toolbarWidth}>
                             <ActionIcon aria-label="Toggle Left Toolbar" variant="subtle" color="gray">
-                                <IconMenu onClick={toggleLeftToolbar} stroke={iconStroke} />
+                                <IconMenu onClick={() => setNavbarOpened(!navbarOpened)} stroke={iconStroke} />
                             </ActionIcon>
                         </Flex>
                         {/** App Title */}
@@ -243,50 +244,6 @@ export function Shell({ children }: { children?: ReactNode }) {
                     </Group>
                 </Group>
             </AppShell.Header>
-            {/** Left Toolbar */}
-            <AppShell.Navbar>
-                {/** Left Toolbar Icons */}
-                <Flex direction="row" h="100%" w={navbarWidth}>
-                    <Box h="100%" style={{ borderRight: activeLeftPanel !== null ? '1px solid var(--mantine-color-gray-3)' : 'none' }}>
-                        <Group
-                            justify="center"
-                            w={toolbarWidth}
-                            pt="md"
-                            gap="md"
-                        >
-                            {leftToolbarIcons.map(({ icon: Icon, label, disabled }, index) => (
-                                <Tooltip
-                                    key={label}
-                                    label={label}
-                                    position="right"
-                                >
-                                    <ActionIcon
-                                        key={label}
-                                        aria-label={label}
-                                        onClick={() => (index === activeLeftPanel ? setActiveLeftPanel(null) : setActiveLeftPanel(index))}
-                                        data-active={index === activeLeftPanel}
-                                        variant={index === activeLeftPanel ? 'light' : 'subtle'}
-                                        color={index === activeLeftPanel ? 'blue' : 'gray'}
-                                        size="lg"
-                                        disabled={disabled}
-                                    >
-                                        <Icon
-                                            stroke={iconStroke}
-                                        />
-                                    </ActionIcon>
-                                </Tooltip>
-                            ))}
-                        </Group>
-                    </Box>
-
-                    {/** Left Panel Content */}
-                    {activeLeftPanel !== null && (
-                        <Box style={{ flexGrow: 1 }} p="md">
-                            {leftToolbarIcons[activeLeftPanel].content}
-                        </Box>
-                    )}
-                </Flex>
-            </AppShell.Navbar>
             {/** Main Area */}
             <AppShell.Main>
                 <Container fluid mt="xs">
@@ -303,6 +260,8 @@ export function Shell({ children }: { children?: ReactNode }) {
                     {children}
                 </Container>
             </AppShell.Main>
+
+            <AppShell.Navbar withBorder>Navbar</AppShell.Navbar>
             {/** Reset to Defaults Modal */}
             <Modal
                 opened={resetModalOpened}
