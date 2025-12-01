@@ -1,0 +1,12 @@
+.leftToolbarIcon {
+    color: var(--mantine-color-gray-6);
+}
+
+.leftToolbarIcon[data-active='true'] {
+    color: var(--mantine-color-blue-6);
+    background-color: var(--mantine-color-blue-0);
+}
+
+.tabOutlineActive {
+    border-bottom: 2px solid var(--mantine-color-blue-6);
+}

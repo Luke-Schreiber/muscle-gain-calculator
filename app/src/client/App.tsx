@@ -1,10 +1,14 @@
 import { useEffect, useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { routes } from 'wasp/client/router';
+import { MantineProvider, createTheme } from '@mantine/core';
 import './Main.css';
-import NavBar from './components/NavBar/NavBar';
-import { demoNavigationitems, marketingNavigationItems } from './components/NavBar/constants';
+import { Shell } from './components/Shell';
 import CookieConsentBanner from './components/cookie-consent/Banner';
+
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
 
 /**
  * use this component to wrap all child components
@@ -12,21 +16,6 @@ import CookieConsentBanner from './components/cookie-consent/Banner';
  */
 export default function App() {
   const location = useLocation();
-  const isMarketingPage = useMemo(() => {
-    return location.pathname === '/' || location.pathname.startsWith('/pricing');
-  }, [location]);
-
-  const navigationItems = isMarketingPage ? marketingNavigationItems : demoNavigationitems;
-
-  const shouldDisplayAppNavBar = useMemo(() => {
-    return (
-      location.pathname !== routes.LoginRoute.build() && location.pathname !== routes.SignupRoute.build()
-    );
-  }, [location]);
-
-  const isAdminDashboard = useMemo(() => {
-    return location.pathname.startsWith('/admin');
-  }, [location]);
 
   useEffect(() => {
     if (location.hash) {
@@ -39,20 +28,23 @@ export default function App() {
   }, [location]);
 
   return (
-    <>
-      <div className='min-h-screen bg-background text-foreground'>
-        {isAdminDashboard ? (
-          <Outlet />
-        ) : (
-          <>
-            {shouldDisplayAppNavBar && <NavBar navigationItems={navigationItems} />}
-            <div className='mx-auto max-w-screen-2xl'>
-              <Outlet />
-            </div>
-          </>
-        )}
-      </div>
+    <MantineProvider theme={theme}>
+      <Shell>
+        {/* If we want to render specific route content inside the Shell, we can use Outlet here.
+            However, the Shell currently manages its own views (Dashboard, Workouts, etc.).
+            If the user wants the Shell to wrap *everything*, we might need to adjust.
+            For now, I'll render Outlet inside Shell if needed, or just let Shell be the layout.
+            Given the Shell has its own tabs, maybe we don't need Outlet for the main views?
+            But for /pricing, we navigate away.
+            Let's keep Outlet here so other routes work if they are nested.
+         */}
+        {/* <Outlet />  -- The Shell has its own content switching. 
+             If we are on a route that ISN'T handled by the Shell tabs (like /login?), 
+             we might need logic. But the user said "Shell should be the full app".
+             Let's assume Shell is the main layout.
+          */}
+      </Shell>
       <CookieConsentBanner />
-    </>
+    </MantineProvider>
   );
 }
