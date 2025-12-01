@@ -183,7 +183,7 @@ export function Shell({ children }: { children?: ReactNode }) {
                             </ActionIcon>
                         </Flex>
                         {/** App Title */}
-                        <Title order={3} pl="xs">Muscle Gain Projection</Title>
+                        <Title order={3} pl="xs">Muscle Gain Calculator</Title>
                         {/** View Tabs */}
                         <Tabs
                             variant="outline"

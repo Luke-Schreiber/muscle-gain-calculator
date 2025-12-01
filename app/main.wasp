@@ -3,7 +3,7 @@ app OpenSaaS {
     version: "^0.18.0"
   },
 
-  title: "My Open SaaS App",
+  title: "Muscle Gain Calculator",
 
   head: [
     "<link rel='icon' href='/favicon.ico' />",
