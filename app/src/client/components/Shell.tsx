@@ -1,6 +1,7 @@
 import {
     ReactNode, useContext, useMemo, useState,
 } from 'react';
+import PricingPage from '../../payment/PricingPage';
 import { useDisclosure } from '@mantine/hooks';
 import {
     AppShell, Group, Tabs, ActionIcon, Title, Flex, Container, Menu, Box, Text, Tooltip,
@@ -75,7 +76,7 @@ export function Shell({ children }: { children?: ReactNode }) {
         },
         {
             key: 'Pricing',
-            content: null, // Handled by navigation
+            content: <PricingPage />, // Handled by navigation
         },
     ];
     // Default tab shown initial load
@@ -157,11 +158,8 @@ export function Shell({ children }: { children?: ReactNode }) {
 
     const handleTabChange = (value: string | null) => {
         if (!value) return;
-        if (value === 'Pricing') {
-            navigate('/pricing');
-        } else {
-            setActiveTab(value);
-        }
+        // Directly set the active tab for all values, including Pricing, to display content within the Shell.
+        setActiveTab(value);
     };
 
     return (
@@ -197,7 +195,7 @@ export function Shell({ children }: { children?: ReactNode }) {
                             visibleFrom="sm"
                         >
                             {/** Render each tab in tabs list */}
-                            <Tabs.List style={{ borderBottom: 'none' }}>
+                            <Tabs.List h={toolbarWidth} style={{ paddingTop: 10 }}>
                                 {Object.values(TABS).map((tab) => (
                                     <Tabs.Tab key={tab.key} value={tab.key}>{tab.key}</Tabs.Tab>
                                 ))}
