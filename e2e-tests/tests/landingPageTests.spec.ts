@@ -16,7 +16,7 @@ test.describe('general landing page tests', () => {
 
   test('headings', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Frequently asked questions' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Some cool words' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Muscle Gain Calculator' })).toBeVisible();
   });
 });
 
