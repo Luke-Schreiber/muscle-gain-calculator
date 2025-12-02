@@ -21,25 +21,11 @@ import {
 } from '@tabler/icons-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import classes from './Shell.module.css';
-
-// Mock Store and Theme Constants for now
-const Store = {
-    filtersStore: {
-        resetAllFilters: () => console.log('Reset filters'),
-        showFilterHistograms: false,
-    },
-    selectionsStore: {
-        selectedVisitNos: [1, 2, 3],
-    },
-};
-
-const useThemeConstants = () => ({
-    toolbarWidth: 60,
-    iconStroke: 1.5,
-});
+import { DashboardView } from './views/DashboardView';
+import { Store } from '../Store/Store';
+import { useThemeConstants } from '../Theme/mantineTheme';
 
 // Placeholder Views
-const DashboardView = () => <div className="p-4">Dashboard Content</div>;
 const WorkoutsView = () => <div className="p-4">Workouts Content</div>;
 const NutritionView = () => <div className="p-4">Nutrition Content</div>;
 const SettingsView = () => <div className="p-4">Settings Content</div>;
@@ -56,7 +42,7 @@ const FilterIcon = (props: IconProps) => <IconChartBar {...props} />;
  * Includes a header toolbar (Intelvia), left toolbar, and main content area.
  */
 export function Shell({ children }: { children?: ReactNode }) {
-    const store = Store; // Mocked context
+    const store = useContext(Store);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -169,7 +155,6 @@ export function Shell({ children }: { children?: ReactNode }) {
                 width: 350,
                 breakpoint: 0,
                 collapsed: { desktop: !navbarOpened },
-                withBorder: true,
             }}
             padding="xs"
         >
@@ -261,7 +246,7 @@ export function Shell({ children }: { children?: ReactNode }) {
                 </Container>
             </AppShell.Main>
 
-            <AppShell.Navbar withBorder>Navbar</AppShell.Navbar>
+            <AppShell.Navbar>Navbar</AppShell.Navbar>
             {/** Reset to Defaults Modal */}
             <Modal
                 opened={resetModalOpened}

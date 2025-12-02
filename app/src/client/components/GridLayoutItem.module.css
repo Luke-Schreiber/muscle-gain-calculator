@@ -1,0 +1,11 @@
+.gridItem {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--mantine-color-body);
+}
+
+.chartTitleHovered {
+    color: var(--mantine-color-blue-6);
+    transition: color 0.2s ease;
+}
