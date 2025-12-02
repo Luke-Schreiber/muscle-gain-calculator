@@ -46,6 +46,11 @@ export function Shell({ children }: { children?: ReactNode }) {
     const navigate = useNavigate();
     const location = useLocation();
 
+    // ===== IMAGE SIZING - Adjust these values to scale the images =====
+    const LOGO_WIDTH = 40; // Width of the left logo image in pixels
+    const OUTSTRETCHED_WIDTH = 70; // Width of the right outstretched image in pixels
+    // ==================================================================
+
     // View tabs -----------------
     const TABS = [
         {
@@ -152,7 +157,7 @@ export function Shell({ children }: { children?: ReactNode }) {
         <AppShell
             header={{ height: toolbarWidth }}
             navbar={{
-                width: 350,
+                width: 396.5,
                 breakpoint: 0,
                 collapsed: { desktop: !navbarOpened },
             }}
@@ -160,7 +165,7 @@ export function Shell({ children }: { children?: ReactNode }) {
         >
             {/** Header Toolbar */}
             <AppShell.Header withBorder>
-                <Group justify="space-between" h="100%" px="md">
+                <Group justify="space-between" h="100%" px={0} gap={0}>
                     <Group>
                         {/** Left Toolbar Toggle Burger Icon */}
                         <Flex justify="center" w={toolbarWidth}>
@@ -168,8 +173,23 @@ export function Shell({ children }: { children?: ReactNode }) {
                                 <IconMenu onClick={() => setNavbarOpened(!navbarOpened)} stroke={iconStroke} />
                             </ActionIcon>
                         </Flex>
-                        {/** App Title */}
-                        <Title order={3} pl="xs">Muscle Gain Calculator</Title>
+                        {/** App Title with Images */}
+                        <Group gap={0} align="center">
+                            {/** Left Logo Image */}
+                            <img
+                                src="/muscle-gain-calculator-logo.png"
+                                alt="Muscle Gain Calculator Logo"
+                                style={{ width: LOGO_WIDTH, height: 'auto' }}
+                            />
+                            {/** Title */}
+                            <Title order={3} style={{ fontStyle: 'italic' }}>MUSCLE GAIN CALCULATOR</Title>
+                            {/** Right Outstretched Image */}
+                            <img
+                                src="/muscle-gain-calculator-outstretched.png"
+                                alt="Muscle Gain"
+                                style={{ width: OUTSTRETCHED_WIDTH, height: 'auto' }}
+                            />
+                        </Group>
                         {/** View Tabs */}
                         <Tabs
                             variant="outline"

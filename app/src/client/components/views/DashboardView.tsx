@@ -12,7 +12,7 @@ import {
 } from '@mantine/core';
 import { BarChart, LineChart } from '@mantine/charts';
 import {
-    IconCalendarCode, IconGripVertical, IconNumbers, IconPercentage, IconPlus, IconChartBar, IconChartLine,
+    IconCalendarCode, IconGripVertical, IconChartBar, IconChartLine,
 } from '@tabler/icons-react';
 
 // Dashboard
